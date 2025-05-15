@@ -12,6 +12,7 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, usersMap }) => {
   const [editedTitle, setEditedTitle] = useState('')
   const [editedBody, setEditedBody] = useState('')
   const [postList, setPostList] = useState<Post[]>([])
+  
 
   useEffect(() => {
   setPostList(posts)

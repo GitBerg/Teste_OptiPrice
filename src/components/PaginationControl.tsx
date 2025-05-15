@@ -16,7 +16,7 @@ export const PaginationControl = ({goToPreviousPage, goToNextPage, currentPage, 
           Anterior
         </button>
 
-        <span className="text-sm">
+        <span className="text-sm text-muted font-medium">
           Página {currentPage} de {totalPages}
         </span>
 

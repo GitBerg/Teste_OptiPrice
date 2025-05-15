@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { getUsers } from '../services/usersService'
 import axios from 'axios'
 
 interface User {
@@ -12,16 +13,16 @@ export const useUsers = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/users')
-      .then(res => {
-        const map = new Map()
-        res.data.forEach((user: User) => {
-          map.set(user.id, user.name) 
-        })
-        setUsersMap(map)
+    getUsers()
+    .then((data) => {
+      const map = new Map()
+      data.forEach((user) => {
+        map.set(user.id, user.name)
       })
-      .catch(err => console.error(err))
-      .finally(() => setLoading(false))
+      setUsersMap(map)
+    })
+    .catch(console.error)
+    .finally(() => setLoading(false))
   }, [])
 
   return { usersMap, loading }
