@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Post } from '../types/post'
+import removeBreakLines from '../utils/removeBreakLines'
 
 interface PostsTableProps {
   posts: Post[]
@@ -16,9 +17,10 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
 }, [posts])
 
   const handleEdit = (post: Post) => {
+    
     setEditablePostId(post.id)
     setEditedTitle(post.title)
-    setEditedBody(post.body)
+    setEditedBody(removeBreakLines(post.body))
   }
 
   const handleSave = (id: number) => {
@@ -32,8 +34,8 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
   
 
   return (
-    <div className="overflow-hidden shadow-lg bg-[#FFF]/50 border-2 border-accent rounded-lg">
-      <table className="w-full table-auto border-collapse ">
+    <div className="overflow-x-auto shadow-lg bg-[#FFF]/40 border-2 border-accent rounded-lg">
+      <table className="w-full table-auto ">
         <thead className='bg-accent/40'>
           <tr>
             <th className="text-center py-4 px-6 border-b text-header">ID</th>
@@ -45,8 +47,8 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
         <tbody>
           {postList.map((post) => (
             <tr key={post.id} className='border-surface border'>
-              <td className="p-4  text-muted border-r-1 border-accent font-bold">{post.id}</td>
-              <td className="p-4  text-muted w-2/10 border-r-1 border-accent">
+              <td className="p-2  text-muted border-r-1 border-accent font-bold">{post.id}</td>
+              <td className="p-2  text-muted w-2/10 border-r-1 border-accent">
                 {editablePostId === post.id ? (
                   <input
                     type="text"
@@ -55,10 +57,10 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
                     className="border border-header p-2 p-1 w-full bg-white rounded focus:outline-none focus:ring-2 focus:ring-accent"
                   />
                 ) : (
-                 <p className='break-all line-clamp-3'>{post.title}</p> 
+                 <p className='break-all line-clamp-3 text-sm'>{post.title}</p> 
                 )}
               </td>
-              <td className="text-justify p-4 text-muted w-6/10 border-r-1 border-accent">
+              <td className="text-justify p-2 text-muted w-6/10 border-r-1 border-accent">
                 {editablePostId === post.id ? (
                   <textarea
                     value={editedBody}
