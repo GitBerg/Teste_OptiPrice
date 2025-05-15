@@ -4,9 +4,10 @@ import removeBreakLines from '../utils/removeBreakLines'
 
 interface PostsTableProps {
   posts: Post[]
+  usersMap: Map<number, string>
 }
 
-const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
+const PostsTable: React.FC<PostsTableProps> = ({ posts, usersMap }) => {
   const [editablePostId, setEditablePostId] = useState<number | null>(null)
   const [editedTitle, setEditedTitle] = useState('')
   const [editedBody, setEditedBody] = useState('')
@@ -24,6 +25,7 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
   }
 
   const handleSave = (id: number) => {
+
     const updated = postList.map((post) =>
       post.id === id ? { ...post, title: editedTitle, body: editedBody } : post
     )
@@ -34,11 +36,12 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
   
 
   return (
-    <div className="overflow-x-auto shadow-lg bg-[#FFF]/40 border-2 border-accent rounded-lg">
-      <table className="w-full table-auto ">
+    <div className="overflow-x-auto shadow-lg bg-[#FFF]/50 border-2 border-accent rounded-lg">
+      <table className="w-full table-auto">
         <thead className='bg-accent/40'>
           <tr>
             <th className="text-center py-4 px-6 border-b text-header">ID</th>
+            <th className="text-center py-4 px-6 border-b text-header">Usuário</th>
             <th className="text-center py-4 px-6 border-b text-header">Título</th>
             <th className="text-center py-4 px-6 border-b text-header">Conteúdo</th>
             <th className="text-center py-4 px-6 border-b text-header">Ações</th>
@@ -48,6 +51,9 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
           {postList.map((post) => (
             <tr key={post.id} className='border-surface border'>
               <td className="p-2  text-muted border-r-1 border-accent font-bold">{post.id}</td>
+              <td className="p-2  text-muted border-r-1 border-accent text-sm ">
+                {usersMap.get(post.userId) ?? 'Desconhecido'}
+              </td>
               <td className="p-2  text-muted w-2/10 border-r-1 border-accent">
                 {editablePostId === post.id ? (
                   <input
@@ -76,7 +82,8 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
                 {editablePostId === post.id ? (
                   <button
                     onClick={() => handleSave(post.id)}
-                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 cursor-pointer font-medium"
+                    disabled={!editedTitle.trim() || !editedBody.trim()}
+                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 cursor-pointer font-medium disabled:bg-gray-300 disabled:cursor-default"
                   >
                     Salvar
                   </button>

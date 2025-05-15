@@ -4,11 +4,13 @@ import { Post } from '../types/post'
 import SearchInput from '../components/SearchInput'
 import PostsTable from '../components/PostsTable'
 import { PaginationControl } from '../components/PaginationControl'
+import { useUsers } from '../hooks/useUsers'
 
 const Home = () => {
   const [posts, setPosts] = useState<Post[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const { usersMap, loading: usersLoading } = useUsers()
 
   const POSTS_PER_PAGE = 10
 
@@ -39,7 +41,7 @@ const Home = () => {
         setSearchTerm(value)
         setCurrentPage(1) 
       }} />
-      <PostsTable posts={currentPosts} />
+      <PostsTable posts={currentPosts} usersMap={usersMap} />
       <PaginationControl
         goToPreviousPage={() => setCurrentPage(currentPage - 1)}
         goToNextPage={() => setCurrentPage(currentPage + 1)}        
