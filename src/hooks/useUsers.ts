@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react'
 import { getUsers } from '../services/usersService'
-import axios from 'axios'
-
-interface User {
-  id: number
-  name: string
-  username: string
-}
 
 export const useUsers = () => {
   const [usersMap, setUsersMap] = useState<Map<number, string>>(new Map())
