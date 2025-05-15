@@ -19,4 +19,9 @@ body{
   background-color: #FFF5E5;
 }
 
+table, tr {
+    border-left: none;
+    border-right: none;
+}
+
 
