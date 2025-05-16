@@ -44,8 +44,8 @@ Aplicação desenvolvida como parte de um desafio técnico de front-end. O proje
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/posts-app.git
-   cd posts-app
+   git clone https://github.com/GitBerg/Teste_OptiPrice.git
+   cd Teste_OptiPrice
    ```
 2. Instale as dependências:
   ```bash
