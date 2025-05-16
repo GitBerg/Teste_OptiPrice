@@ -50,7 +50,6 @@ Aplicação desenvolvida como parte de um desafio técnico de front-end. O proje
 2. Instale as dependências:
   ```bash
 npm install
-Acesse em http://localhost:5173
 ```
 
 3. Rode a aplicação:
